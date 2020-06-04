@@ -1,0 +1,65 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{%block title%}个人主页|消息通知{%endblock%}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <ul class="notifications" style="margin-top:2em;">
+				<h4>关注列表</h4>
+					{% for followed in page_of_bbs %}
+						<img alt='' src="/media/{{followed.avatar}}" class='avatar avatar-54 photo avatar-default pull-left' height='40' width='40' style="margin-top:0.8em">
+						<li style="margin-top:1em;font-size:160%"><a href="{% url 'ouser:other_page' followed.username%}">{{followed.username}}</a></li>
+						<form class="follow" method="POST" action="{% url 'ouser:follow_delete' %}" style="margin-top:-2.2em; margin-left:20%">
+						{% csrf_token %}
+							<input type="hidden" name="other_name" value="{{ followed.username }}"/>
+							<input type="submit" value="取消关注" class="btn btn-danger" >
+						</form>
+					{%empty%}
+					<li style="margin-top:1em;font-size:160%">暂时还没有关注的人，快去关注吧~</li>
+					
+					{%endfor%}
+					<div class="pagination">
+					  <ul class="pagination">
+						<li>
+						{%if page_of_bbs.has_previous%}
+						  <a href="?page={{page_of_bbs.previous_page_number}}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						  </a>
+						 {%else%}
+							<span aria-hidden="true">&laquo;</span>
+						 {%endif%}
+						</li>
+						
+						{% for page_num in page_range %}
+							{%if page_num == page_of_bbs.number%}
+								<li class="active"><span>{{page_num}}</span></li>
+							{%else%}
+								{%if page_num == '...'%}
+									<li><span>{{page_num}}</span></li>
+								{%else%}
+									<li><a href="?page={{page_num}}">{{page_num}}</a></li>
+								{%endif%}
+							{%endif%}
+						{%endfor%}	
+						
+						<li>
+						{%if page_of_bbs.has_next%}
+						  <a href="?page={{page_of_bbs.next_page_number}}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						  </a>
+						{%else%}
+							<span aria-hidden="true">&raquo;</span>
+						{%endif%}
+						</li>
+					  </ul>
+				</div>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

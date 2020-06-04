@@ -1,0 +1,36 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{%block title%}个人主页{%endblock%}
+{% block content %}
+<div class="container">
+    <div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+			{% if user.is_authenticated %}
+				<img alt='' src="/media/{{user.avatar}}" class='avatar avatar-54 photo avatar-default pull-left' height='60' width='60' style="">
+				<h2>{{ user.username }}的个人主页</h2>
+				
+				<ul>
+					<li style="margin-top:1.5em;font-size:150%">邮箱：{% if user.email %}{{ user.email }}{% else %}未绑定 <a href="#">绑定邮箱</a>{% endif %}</li>
+					<li style="margin-top:1.5em;font-size:150%"><a href="{% url 'ouser:change_password' %}">修改密码</a></li>
+					<li style="margin-top:1.5em;font-size:150%"><a href="{% url 'my_notifications:change_avatar' %}">修改头像</a></li>
+					<li style="margin-top:1.5em;font-size:150%"><a href="{% url 'my_notifications:my_notifications' %}">消息中心</a></li>
+					<li style="margin-top:1.5em;font-size:150%"><a href="{% url 'my_notifications:my_articles' %}">我的帖子</a></li>
+					<li style="margin-top:1.5em;font-size:150%"><a href="{% url 'my_notifications:my_comments' %}">我的评论</a></li>
+					<li style="margin-top:1.5em;font-size:150%"><a href="{% url 'my_notifications:my_loves' %}">我的点赞</a></li>
+					<li style="margin-top:1.5em;font-size:150%"><a href="{% url 'my_notifications:my_follow' %}">我的关注</a></li>
+					<li style="margin-top:1.5em;font-size:150%">上一次登录的时间：{{ user.last_login|date:"Y-m-d H:i:s" }}</li>
+					
+				</ul>
+			{% else %}
+				<span>未登录，跳转到首页...</span>
+				<script type="text/javascript">
+					window.location.href = '/';
+				</script>
+			{% endif %}
+			
+
+		</div>
+	</div>
+</div>
+{%endblock%}

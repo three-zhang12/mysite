@@ -1,0 +1,421 @@
+{%load static%}
+{% load app01_tags %}
+{% load notifications_tags %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>
+  {%block title%}
+  Good - Bootstrap Corporate Template
+  {%endblock%}
+  </title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="{% static '/img/favicon.png' %}" rel="icon">
+  <link href="{% static '/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{% static '/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{% static '/lib/flat-ui/css/flat-ui.css' %}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{% static '/css/style.css' %}" rel="stylesheet">
+  
+  <link rel='stylesheet' id='style-css' href='{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}' type='text/css' media='all'/>
+  
+  <script type="text/javascript" src="{%static 'ckeditor/ckeditor-init.js'%}"></script>
+  <script type="text/javascript" src="{%static 'ckeditor/ckeditor/ckeditor.js'%}"></script>
+  {% block style_extend %} {% endblock %}
+  
+
+
+  <!-- =======================================================
+    Template Name: Good
+    Template URL: https://templatemag.com/good-bootstrap-corporate-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="{%url 'app01:index'%}" >主页</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+
+			{%get_bigcategory_list as bigcategory%}
+			{%for big in bigcategory%}
+          <li class="dropdown">
+            <a href="{%url 'app01:category' big.name%}" class="dropdown-toggle" data-toggle="dropdown">{{big.name}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+			{% get_category_list big.id as cate %}
+			{% for c in cate%}
+              <li><a href="{%url 'app01:category_detail' big.name c.name%}">{{c.name}}</a></li>
+			{%endfor%}
+            </ul>
+          </li>
+		  {%endfor%}
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+			  <form class="navbar-form search-form" action="{%url 'app01:search' %}">
+
+				<div class="form-group">
+				    <input type="text" name="search_content" class="form-control" placeholder="Search">
+				</div>
+					<button type="submit" class="btn btn-default">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+			  </form>
+			</li>
+			
+			{% if request.user.username|default:'' != '' %}
+			{% notifications_unread as unread_count %}
+			<li><a href="{% url 'ouser:personal_page' %}">{{request.user.username}}<span class="badge live_notify_badge" style="background-color:#ac2925!important;margin-top:-0.2em">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</span></a></li>
+			<li><a href="{% url 'ouser:logout' %}">注销</a></li>
+			{%else%}
+			<li><a href="{% url 'ouser:login' %}?next={{ request.get_full_path }}">登录</a></li>
+			<li><a href="{% url 'ouser:register' %}">注册</a></li>
+			{%endif%}
+		</ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+
+
+  <!-- BLOG PAGE -->
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <!-- Content Section -->
+      <div class="col-lg-10 sinfo" style="left:-5%;">
+        <div class="blogcontent">
+			<h1><a href="#">{{ object.title }}</a></h1>
+			<div>
+				<span id="mute-category" >
+					<i class="fa fa-list-alt"></i>
+					<a href="#"> {{ object.category.name }}</a>
+				</span>
+				
+				<span class="muted">
+					<i class="fa fa-user"></i>
+					<a href="{% url 'ouser:other_page' object.author.username%}">{{ object.author }}</a>
+				</span>
+				<time class="muted"><i class="fa fa-clock-o"></i> {{ object.created_date|date:'Y-m-d H:m:s' }}</time>
+				<span class="muted"><i class="fa fa-eye"></i> {{ object.views }}浏览</span>
+				<span class="muted">
+					<i class="fa fa-comments-o"></i>
+					{%get_comment_count object.id%}
+					<a href="#">{{comment_count}}评论</a>
+				</span>
+				<span class="muted">
+					<div class="like", onclick="likechange(this, 'bbs', {{object.id}})">
+						<i class="fa fa-heart-o {% get_love_status bbs%}"></i>
+						<span class="count">{% get_love_count bbs%}</span>喜欢</a>
+					</div>
+				</span>
+				<p class="lead">{{object.content|safe}}</p>
+			</div>
+			<div class="next_previous">
+			{%if next_bbs %}
+				<span class="pull-left"><span class="glyphicon glyphicon-circle-arrow-left"></span><a href = '{% url "app01:detail" pk=next_bbs.id %}'>{{next_bbs.title}}</a></span>
+			{%else%}
+				<span class="pull-left"><span class="glyphicon glyphicon-circle-arrow-left"></span>没有了~</span>
+			{%endif%}
+			{%if previous_bbs %}
+				<span class="pull-right"><a href='{% url "app01:detail" pk=previous_bbs.id %}'>{{previous_bbs.title}}</a><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+			{%else%}
+				<span class="pull-right">没有了~<span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+			{%endif%}
+			</div>
+        </div>
+		{% if user.is_authenticated%}
+		<div class="comment_container">
+			<h4 style="margin-top:2em;border-bottom: 1px solid #ccc;">提交评论</h4>
+			<form id="comment_form" action="{% url 'comment:comment_sub' %}" method="POST">
+				<label style="font-weight:800;margin-left:10px">{{ user.username }}，欢迎评论~</label>
+				<div id="reply_comment_container" style="display:none;">
+					<p id="reply_title">回复:</p>
+					<div id="reply_comment">
+					
+					</div>			
+				</div>			
+				{% csrf_token %}
+				{% for field in comment_form %}
+					{{field}}
+				{%endfor%}
+				<span id="comment_error" class="text-danger pull-left"></span>
+				<input type="submit" value="发表评论" class="btn btn-primary pull-right">
+				
+			</form>
+		
+		{%else%}
+				{% for field in comment_form %}
+					{{field}}
+				{%endfor%}
+		<p>Please <a href='/login/'>Login</a> to sumbit a comment!</p>
+		<hr>
+		{%endif%}
+			
+		
+		<div class="comment-area">
+			<h4 class="comment-area-title">评论列表</h4>
+			<div id="comment_list">
+				{% for comment in page_of_comment.object_list %}
+					<div class="comment" id="root_{{comment.pk}}">
+						<img alt='' src="/media/{{comment.user.avatar}}" class='avatar avatar-54 photo avatar-default' height='54' width='54' />
+						<span>{{ comment.user.username }}</span>
+						<span>({{ comment.date|date:"Y-m-d H:i:s" }})：</span>
+						<hr>
+						<div id="comment_{{comment.pk}}">
+							{{ comment.article_comment|safe }}
+						</div>
+						<a href="javascript:reply({{comment.pk}});">回复</a>
+						<hr>
+						
+						{%for reply in comment.r_comment.all%}
+							<div class="reply">
+								<img alt='' src="/media/{{reply.user.avatar}}" class='avatar avatar-54 photo avatar-default' height='30' width='30' />
+								<span>{{ reply.user.username }}</span>
+								<span>回复</span>
+								<img alt='' src="/media/{{reply.reply_to.avatar}}" class='avatar avatar-54 photo avatar-default' height='30' width='30' />
+								<span>{{reply.reply_to.username}}</span>
+								<span>({{ reply.date|date:"Y-m-d H:i:s" }}):</span>
+								<hr>
+								<div id="comment_{{reply.pk}}">
+									{{ reply.article_comment|safe }}
+								</div>
+								<a href="javascript:reply({{reply.pk}});">回复</a>
+								<hr>
+							</div>
+						{%endfor%}
+						
+					</div>
+				{% empty %}
+					<span id="no_comment">暂无评论</span>
+				{% endfor %}
+			</div>			
+		</div>
+		
+		<div class="pagination">
+		  <ul class="pagination">
+			<li>
+			{%if page_of_comment.has_previous%}
+			  <a href="?page={{page_of_comment.previous_page_number}}" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			  </a>
+			 {%else%}
+				<span aria-hidden="true">&laquo;</span>
+			 {%endif%}
+			</li>
+			
+			{% for page_num in page_range %}
+				{%if page_num == page_of_comment.number%}
+					<li class="active"><span>{{page_num}}</span></li>
+				{%else%}
+					{%if page_num == '...'%}
+						<li><span>{{page_num}}</span></li>
+					{%else%}
+						<li><a href="?page={{page_num}}">{{page_num}}</a></li>
+					{%endif%}
+				{%endif%}
+			{%endfor%}	
+			
+			<li>
+			{%if page_of_comment.has_next%}
+			  <a href="?page={{page_of_comment.next_page_number}}" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			  </a>
+			{%else%}
+				<span aria-hidden="true">&raquo;</span>
+			{%endif%}
+			</li>
+		  </ul>
+		</div>
+	  </div>		
+		
+
+	</div>
+
+
+
+	<!-- Sidebar Section -->
+      <div class="col-lg-2 sidebar" style="position:absolute;margin:0;padding:0;right:5%;top:30%">
+        <h6><span class="fui-arrow-right"></span> {{cat_of_bigcategory.name}}</h6>
+        <p>
+		{%for cat in category_list%}
+          <span class="fui-folder"></span> <a href="{%url 'app01:category_detail' cat_of_bigcategory.name cat.name%}">{{cat.name}}</a><br/>
+		{%endfor%}
+        </p>
+        <br>
+     
+        <h6><span class="fui-arrow-right"></span> 分区最新</h6>
+        <p>
+		{% for bbs in recent_cat_bbs %}
+          <span class="glyphicon glyphicon-book"></span> <a href="{% url 'app01:detail' bbs.id%}">{{bbs.title}}</a><br/>
+		  {% empty %}
+		  <span class="glyphicon glyphicon-book"></span> 暂无新内容<br/>
+		  {%endfor%}
+
+        </p>
+        <br>
+        <h6><span class="fui-arrow-right"></span> 作者新帖</h6>
+        <p>
+		{% for my_bbs in my_bbs_list %}
+          <span class="glyphicon glyphicon-book"></span> <a href="{% url 'app01:detail' my_bbs.id%}">{{my_bbs.title}}</a><br/>
+		  {% empty %}
+		  <span class="glyphicon glyphicon-book"></span> 暂无新内容<br/>
+		  {%endfor%}
+
+        </p>
+        </div>
+	</div>
+
+  </div>
+</div>
+{%endblock%}	
+
+		
+
+		
+
+
+  <!-- JavaScript Libraries -->
+  <script src="{% static '/lib/jquery/jquery.js' %}"></script>
+  <script src="{% static '/lib/jquery/jquery.form.js' %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{% static '/lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static '/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static '/lib/php-mail-form/validate.js' %}"></script>
+  
+    <script type="text/javascript">
+        $("#comment_form").submit(function(){
+            // 判断是否为空
+            $("#comment_error").text('');
+            if(CKEDITOR.instances["id_comment_content"].document.getBody().getText().trim()==''){
+                $("#comment_error").text('评论内容不能为空');
+                return false;
+            }
+
+            // 更新数据到textarea
+            CKEDITOR.instances['id_comment_content'].updateElement();
+
+            // 异步提交
+            $.ajax({
+                url: "{% url 'comment:comment_sub' %}",
+                type: 'POST',
+                data: $("#comment_form").serialize(),
+                cache: false,
+                success: function(data){
+                    console.log(data);
+                    if(data['status']=="SUCCESS"){
+                        // 插入数据
+                        if($('#reply_to_id').val()=='0'){
+                            // 插入评论
+                            var comment_html = '<div id="root_' + data['pk'] + '" class="comment"><img alt="" src="/media/'+ data['avatar'] +'" class="avatar avatar-54 photo avatar-default" height="54" width=“54” /><span>' + data['user'] + '</span><span> (' + data['comment_time'] + ')：<hr></span><div id="comment_' + data['pk'] + '">' + data['text'] + '</div><a href="javascript:reply(' + data['pk'] + ');">回复</a></div><hr>';
+
+                        }else{ 
+                            // 插入回复
+                            var reply_html ='<div class="reply"><img alt="" src="/media/'+ data['avatar'] +'" class="avatar avatar-54 photo avatar-default" height="30" width="30" /><span>' + data['user'] + '</span><span> (' + data['comment_time'] + ')</span><span> 回复 </span><img alt="" src="/media/'+ data['reply_avatar'] +'" class="avatar avatar-54 photo avatar-default" height="30" width="30" /><span>' + data['reply_to'] + '：<hr></span><div id="comment_' + data['pk'] + '">' + data['text'] + '</div><a href="javascript:reply(' + data['pk'] + ');">回复</a></div><hr>';
+                            $("#root_" + data['root_pk']).append(reply_html);
+                        }
+						
+                        $("#comment_list").prepend(comment_html);
+                        // 清空编辑框的内容
+                        CKEDITOR.instances['id_comment_content'].setData('');
+						$('#reply_comment_container').hide();
+                        $('#reply_to_id').val('0');
+                        $('#no_comment').remove();
+                    }else{
+                        // 显示错误信息
+                        $("#comment_error").text(data['message']);
+                    }                      
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+            return false;
+        });
+		
+		function reply(reply_comment_id){
+			$("#reply_to_id").val(reply_comment_id);
+			var html = $("#comment_" + reply_comment_id).html()
+			$("#reply_comment").html(html);
+			$("#reply_comment_container").show();
+			
+			$("html").animate({scrollTop: $("#comment_form").offset().top-80}, 300, function(){
+				CKEDITOR.instances['id_comment_content'].focus();
+			});
+		}
+	
+		function likechange(obj,content_type,object_id){
+			var is_like = obj.getElementsByClassName('active').length == 0
+			$.ajax({
+				url: "{%url 'app01:loves' %}",
+				type:'POST',
+				data:{
+					content_type: content_type,
+					object_id:object_id,
+					is_like: is_like
+				},
+				cache: false,
+				success: function(data){
+					console.log(data)
+					if(data['status']=='SUCCESS'){
+						var element = $(obj.getElementsByClassName('fa-heart-o'));	
+						if(is_like){
+							element.addClass('active');
+						}else{
+							element.removeClass('active');
+						}
+						var love_num = $(obj.getElementsByClassName('count'));	
+						love_num.text(data['love_num'])
+						
+						
+					}else{
+						alert(data['message']);
+					}
+				},
+				error: function(xhr){
+					console.log(xhr)
+				},
+			})
+		}	
+		if (window.location.hash) {
+			$('html').animate({
+				scrollTop: $(window.location.hash).offset().top - 60
+			}, 500);
+		}	
+
+        //自定义实时获取未读消息
+        function my_special_notification_callback(data){
+            unread_count = data['unread_count'];
+            if (unread_count == 0) {
+                unread_count = '';
+            }
+            $('.live_notify_badge').text(unread_count);
+        }		
+	</script>
+  <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+{% register_notify_callbacks callbacks='my_special_notification_callback' %}	
+
+  <!-- Template Main Javascript File -->
+  <script src="{% static '/js/main.js' %}"></script>

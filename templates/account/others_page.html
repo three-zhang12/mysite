@@ -1,0 +1,116 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{%block title%}主页|{{page_user.username}}{%endblock%}
+
+{% block style_extend %} 
+<style>
+ *{  
+            margin: 0px;  
+            padding: 0px;  
+        }  
+        video{  
+            position: fixed;  
+            right: -300px;  
+            bottom: -700px;  
+            min-width: 100%;  
+            min-height: 100%;  
+            height: auto;  
+            width: auto;  
+            z-index:-11
+        }  
+        source{  
+            min-width: 100%;  
+            min-height: 100%;  
+            height: auto;  
+            width: auto;  
+        } 
+		p{
+		    width: 100%;
+			text-align: center;
+			font-size: 40px;
+			color: white;
+		}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<video id="v1" autoplay loop muted>
+  			<source src="{% static '/img/water.mp4' %}" type="video/mp4" />
+</video>
+
+<div class="container">
+    <div class="row">
+		<div class="col-lg-12">
+			<div style="margin-top:1em">
+				<img alt='' src="/media/{{page_user.avatar}}" class='avatar avatar-54 photo avatar-default pull-left' height='60' width='60' style="">
+				<h2>{{page_user.username}}的主页</h2>
+				{% if user.is_authenticated %}
+				{%if f %}
+				<form class="follow" method="POST" action="{% url 'ouser:follow_delete' %}" style="margin-left:-0.9em">
+				{% csrf_token %}
+					<input type="hidden" name="other_name" value="{{ page_user.username }}"/>
+					<input type="submit" value="取消关注" class="btn btn-danger">
+				</form>
+				{%else%}
+				<form class="follow" method="POST" action="{% url 'ouser:follow' %}">
+				{% csrf_token %}
+					<input type="hidden" name="other_name" value="{{ page_user.username }}"/>
+					<input type="submit" value="关注" class="btn btn-info">
+				</form>
+				{%endif%}
+				{%endif%}
+			</div>	
+				<ul style="margin-top:1em;margin-left:5%;color:white;">
+					<h4>TA的帖子</h4>
+				{% for bbs in page_of_bbs.object_list%}
+				
+					<li style="margin-top:2em;font-size:150%">[{{bbs.created_date|date:'Y-m-d H:m:s'}}]:<a href="{% url 'app01:detail' bbs.id%}">{{bbs.title}}</a></li>
+
+				{% empty %}
+					<li style="margin-top:2em;font-size:150%">TA有点懒~</li>	
+				{%endfor%}
+				
+					<div class="pagination">
+					  <ul class="pagination">
+						<li>
+						{%if page_of_bbs.has_previous%}
+						  <a href="?page={{page_of_bbs.previous_page_number}}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						  </a>
+						 {%else%}
+							<span aria-hidden="true">&laquo;</span>
+						 {%endif%}
+						</li>
+						
+						{% for page_num in page_range %}
+							{%if page_num == page_of_bbs.number%}
+								<li class="active"><span>{{page_num}}</span></li>
+							{%else%}
+								{%if page_num == '...'%}
+									<li><span>{{page_num}}</span></li>
+								{%else%}
+									<li><a href="?page={{page_num}}">{{page_num}}</a></li>
+								{%endif%}
+							{%endif%}
+						{%endfor%}	
+						
+						<li>
+						{%if page_of_bbs.has_next%}
+						  <a href="?page={{page_of_bbs.next_page_number}}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						  </a>
+						{%else%}
+							<span aria-hidden="true">&raquo;</span>
+						{%endif%}
+						</li>
+					  </ul>
+				</div>
+				
+				</ul>
+
+		</div>
+	</div>
+</div>
+{%endblock%}

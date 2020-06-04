@@ -1,0 +1,24 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+	<form id="bbs_form" method="POST" action="{% url 'my_notifications:save_edit' cate.name bbs.id %}">
+		{% csrf_token %}
+
+		{% for field in bbs_form %}
+			{% if field.help_text %}
+			<strong>{{field.help_text}}</strong>
+			
+			{%endif%}
+			{{field}}	
+			<br>
+		{%endfor%}
+		<div id="tag_input" class="pull-left"></div>
+		<button class="pull-right btn btn-info btn-sm rounded-0" type="submit">保存</button>
+	</form>
+</div>
+
+{% endblock %}
+
+<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>

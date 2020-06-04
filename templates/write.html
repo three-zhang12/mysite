@@ -1,0 +1,24 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+	<form id="bbs_form" method="POST" action="{% url 'app01:save' bigcategory__name=big.name category__name=cate.name %}">
+		{% csrf_token %}
+
+		{% for field in bbs_form %}
+			{% if field.help_text %}
+			<strong>{{field.help_text}}</strong>
+			
+			{%endif%}
+			{{field}}	
+			<br>
+		{%endfor%}
+		<div id="tag_input" class="pull-left"></div>
+		<button class="pull-right btn btn-info btn-sm rounded-0" type="submit">发表</button>
+	</form>
+</div>
+
+{% endblock %}
+
+<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>

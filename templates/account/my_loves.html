@@ -1,0 +1,28 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{%block title%}个人主页|消息通知{%endblock%}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <ul class="notifications" style="margin-top:2em;">
+                    {% for my_love in my_loves_list %}
+						{% for bbs in my_bbs_list %}
+						{% if bbs.id == my_love.object_id %}
+                        <li style="margin-top:2em;font-size:120%">
+                            <a href="{% url 'app01:detail' pk=bbs.pk %}">[{{my_love.love_date}}]: {{bbs.title}}</a>
+                        </li>
+						{%endif%}
+						{%endfor%}
+                    {% empty %}
+                        <li>暂无内容，快去发帖~</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

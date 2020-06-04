@@ -1,0 +1,52 @@
+{%extends 'index.html'%}
+{%load static%}
+
+{% block write %} {% if user.is_authenticated %}<a href="{% url 'app01:write' big.name cate.name %}" class="glyphicon glyphicon-pencil"><b>发帖</b></a>{% endif %}{% endblock %}
+
+{% block content%}
+<ul class="main-title-4">
+	{% for bbs in page_of_bbs.object_list%}
+	<li class="main-tagline">
+	<a href = '{% url "app01:detail" pk=bbs.id %}' class="smoothscroll btn btn-conf btn-theme"><strong style="font-size:150%;color:#bdc3c7;">{{bbs.title}}</strong></a>
+	</li>
+	{%empty%}
+	<p>暂无内容~</p>
+	{%endfor%}
+	
+	<div class="pagination">
+	  <ul class="pagination">
+		<li>
+		{%if page_of_bbs.has_previous%}
+		  <a href="?page={{page_of_bbs.previous_page_number}}" aria-label="Previous">
+			<span aria-hidden="true">&laquo;</span>
+		  </a>
+		 {%else%}
+			<span aria-hidden="true">&laquo;</span>
+		 {%endif%}
+		</li>
+		
+		{% for page_num in page_range %}
+			{%if page_num == page_of_bbs.number%}
+				<li class="active"><span>{{page_num}}</span></li>
+			{%else%}
+				{%if page_num == '...'%}
+					<li><span>{{page_num}}</span></li>
+				{%else%}
+					<li><a href="?page={{page_num}}">{{page_num}}</a></li>
+				{%endif%}
+			{%endif%}
+		{%endfor%}	
+		
+		<li>
+		{%if page_of_bbs.has_next%}
+		  <a href="?page={{page_of_bbs.next_page_number}}" aria-label="Next">
+			<span aria-hidden="true">&raquo;</span>
+		  </a>
+		{%else%}
+			<span aria-hidden="true">&raquo;</span>
+		{%endif%}
+		</li>
+	  </ul>
+</div>
+</ul>	
+{%endblock%}

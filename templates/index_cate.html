@@ -1,0 +1,18 @@
+{%extends 'index.html'%}
+{%load static%}
+{%load app01_tags%}
+{% block content%}
+<ul class="main-title-3">
+	{%if category%}
+		
+		{% for cate in category%}
+		<li class="main-tagline">
+		<a href = '{% url "app01:category_detail" bigcategory__name=big.name category__name=cate.name %}' class="smoothscroll btn btn-conf btn-theme"><strong style="font-size:150%;color:#bdc3c7;">{{cate.name}}</strong></a>
+		</li>
+
+		{%endfor%}
+	{%else%}
+	<p>11111111111111111111111111111</p>
+	{%endif%}
+</ul>
+{% endblock%}

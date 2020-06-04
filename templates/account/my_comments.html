@@ -1,0 +1,29 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{%block title%}个人主页|消息通知{%endblock%}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <ul class="notifications" style="margin-top:2em;">
+                    {% for my_comment in my_comments_list %}
+                        <li style="margin-top:2em;font-size:120%">
+                            <a href="{% url 'app01:detail' pk=my_comment.article.pk %}">[{{my_comment.date}}]:{{ my_comment.article_comment }}</a>
+							
+                        </li>
+						<li>
+							<a class="btn btn-danger" href="{% url 'my_notifications:delete_comment' my_comment.id %}">删除</a>
+						</li>
+						<hr>
+                    {% empty %}
+                        <li>暂无内容，快去发帖~</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

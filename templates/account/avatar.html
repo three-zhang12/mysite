@@ -1,0 +1,18 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+	<form id="bbs_form" method="POST" action="{% url 'my_notifications:save_avatar'%}" enctype="multipart/form-data" style="margin-left:5em">
+	{% csrf_token %}
+		<div style="margin-top:2em">
+			<label for="avatar">上传头像</label>
+			<input type="file" class="form-control-file" name="avatar" id="avatar">
+		</div>
+		<button class="pull-right btn btn-info btn-sm rounded-0 pull-left" type="submit" style="margin-top:2em">保存</button>
+	</form>
+</div>
+
+{% endblock %}
+
+<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>

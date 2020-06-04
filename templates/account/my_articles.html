@@ -1,0 +1,31 @@
+{% extends 'blog-test.html' %}
+{% load static %}
+
+{%block title%}个人主页|消息通知{%endblock%}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <ul class="notifications" style="margin-top:2em;">
+                    {% for bbs in my_articles_list %}
+                        <li style="margin-top:2em;font-size:150%">
+                            <a href="{% url 'app01:detail' pk=bbs.pk %}">[{{bbs.created_date|date:'Y-m-d H:m:s'}}]:{{ bbs.title }}</a>
+                        </li>
+						<li>
+							<a class="btn btn-info" href="{% url 'my_notifications:edit' bbs.category.name bbs.id%}" class="pull-right">编辑</a>
+							&nbsp;&nbsp;
+							<a class="btn btn-danger" href="{% url 'my_notifications:delete_article' bbs.id %}" class="pull-right">删除</a>
+						</li>
+						<hr>
+						<hr>
+                    {% empty %}
+                        <li>暂无内容，快去发帖~</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

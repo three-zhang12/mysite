@@ -1,0 +1,60 @@
+{%extends 'index.html'%}
+{% load static %}
+{% load app01_tags%}
+
+
+{% block head_title %}文章搜索：{{ search_content }}{% endblock %}
+<br>
+{% block content%}
+    <div class="main-title-5">
+        <div class="row">
+            <div class="col-lg-12">
+                {% if search_content == '' %}
+                    <h3>你没有搜索任何内容。</h3>
+                    <p>你可以尝试输入点什么东西，例如：Django</p>
+                {% else %}
+                    <h3>搜索“{{ search_content }}”，找到{{ search_count }}个结果</h3>
+                    <hr>
+                    {% for bbs in page_of_bbs %}
+                        <a href="{% url 'app01:detail' bbs.pk %}" class="smoothscroll btn btn-conf btn-theme">
+                            <strong style="font-size:150%;color:#bdc3c7;">{{ bbs.title }}</strong>
+                        </a>
+						&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-user">{{ bbs.author }}</span>
+						&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-time">{{ bbs.created_date }}</span>
+						&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-eye-open">{{ bbs.views }}</span>
+						&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-thumbs-up">{{ bbs.loves }}</span>
+						&nbsp;&nbsp;
+						{%get_comment_count bbs.id%}
+						<span class="glyphicon glyphicon-edit">{{ comment_count }}</span>
+						
+						
+                        <p>{{ bbs.content | striptags | truncatechars_html:50}}</p>
+                    {% empty %}
+                        <p>没有找到任何东西，换个关键词试试吧</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row" style="display: flex; justify-content: center;">
+            {% if page_of_bbs.has_previous %}
+                <a class="btn btn-default"
+                   href="{% url 'app01:search' %}?search_content={{ search_content }}&page={{ page_of_bbs.previous_page_number }}">
+                    上一页
+                </a>
+            {% endif %}
+
+            {% if page_of_bbs.has_next %}
+            <a class="btn btn-default"
+               href="{% url 'app01:search' %}?search_content={{ search_content }}&page={{ page_of_bbs.next_page_number }}">
+                下一页
+            </a>
+            {% endif %}
+        </div>
+    </div>
+{%endblock%}
+

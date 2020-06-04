@@ -1,0 +1,255 @@
+{%load static%}
+{% load app01_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Good - Bootstrap Corporate Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="{% static '/img/favicon.png' %}" rel="icon">
+  <link href="{% static '/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{% static '/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{% static '/lib/flat-ui/css/flat-ui.css' %}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{% static '/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+    Template Name: Good
+    Template URL: https://templatemag.com/good-bootstrap-corporate-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="{%url 'app01:index'%}" >主页</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+
+			{%get_bigcategory_list as bigcategory%}
+			{%for big in bigcategory%}
+          <li class="dropdown">
+            <a href="{%url 'app01:category' big.name%}" class="dropdown-toggle" data-toggle="dropdown">{{big.name}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+			{% get_category_list big.id as cate %}
+			{% for c in cate%}
+              <li><a href="{%url 'app01:category_detail' big.name c.name%}">{{c.name}}</a></li>
+			{%endfor%}
+            </ul>
+          </li>
+		  {%endfor%}
+
+			<li class="search">
+						<form  role="search" method="get" id="searchform" action="/search/">
+								<input type="search" name="q"  placeholder="搜索" required=True>							
+								<button class="search-button" type="submit">搜索</button>				
+						</form>
+			</li>
+
+			<img class="user-img" src="/media/{{user.avatar}}" alt="" width=30px, height=30px>
+			{% if request.session.username|default:'' != '' %}
+			<li class="topuser"><a href="#">{{request.session.username}}</a></li>
+			<li class="topreg"><a href="{% url 'ouser:logout' %}">注销</a></li>
+			{%else%}
+			<li class="topuser"><a href="{% url 'ouser:login' %}">登录</a></li>
+			<li class="topreg"><a href="{% url 'ouser:register' %}">注册</a></li>
+			{%endif%}
+		</ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+
+
+  <!-- BLOG PAGE -->
+
+  <div class="container">
+    <div class="row">
+      <!-- Content Section -->
+      <div class="col-lg-8 sinfo">
+		{% block content %}
+        <div class="blogcontent">
+          <!-- First Post -->
+          <img class="img-responsive" src="{% static 'img/blog-post03.jpg' %}" alt="">
+          <h6>FLAT DESIGN ALWAYS</h6>	  
+          <small><span class="fui-user"></span> {{bbs.title}} | <span class="fui-calendar"></span> {{bbs.created_date}}| <span class="fui-chat"></span> 4 Comments</small>
+          <p class="lead">{{bbs.content|safe}}</p>
+          <br>
+          <br>
+        </div>
+		{% endblock %}
+		
+		{% if user.is_authenticated%}
+		<form action="{% url 'comment:comment_sub' %}" method="POST">
+			{% csrf_token %}
+			<textarea cols=80 rows=3 name='comment_content'></textarea>
+			<input type="hidden" name="bbs_id" value="{{bbs.id}}" />
+			<input type="hidden" name="category_name" value="{{category__name}}" />
+			<button class="pull-right btn btn-info btn-sm rounded-0" type="submit">发表</button>
+			<hr>
+		</form>
+		{%else%}
+		<textarea cols=80 rows=3 name='comment_content'></textarea>
+		<p>Please <a href='/login/'>Login</a> to sumbit a comment!</p>
+		<hr>
+		{%endif%}
+		
+		
+		{{comment_tree}}
+		
+
+		
+        <div class="alert">
+          <button class="close fui-cross"></button>
+          <h3>Like This Post?</h3>
+          <p>Consider to register to our newsletter. Weekly, we share our thoughts and cool information. Don't miss a thing. Subscribe Now!</p>
+          <p><input type="text" placeholder="YOUR EMAIL" class="form-control flat" /></p>
+          <button class="btn btn-warning">SUBSCRIBE</button>
+          <br>
+        </div>
+        <br>
+        <hr>
+        <br>
+      </div>
+      <!-- col-lg-8 / Content Section -->
+
+
+      <!-- Sidebar Section -->
+      <div class="col-lg-4 sidebar">
+        <h6><span class="fui-arrow-right"></span> Categories</h6>
+        <p>
+          <span class="fui-folder"></span> Wordpress<br/>
+          <span class="fui-folder"></span> Web Design<br/>
+          <span class="fui-folder"></span> Marketing<br/>
+          <span class="fui-folder"></span> Social Media<br/>
+          <span class="fui-folder"></span> Agency<br/>
+        </p>
+        <br>
+        <h6><span class="fui-arrow-right"></span> Popular Posts</h6>
+        <br>
+        <div class="pop-posts">
+          <p><img src="img/post-thumb02.jpg" width="70" height="70" alt=""> <b>GAME ON!</b> <br/> By: C. Alvarez <br/> 12 comments</p>
+        </div>
+        <div class="pop-posts">
+          <p><img src="img/post-thumb03.jpg" width="70" height="70" alt=""> <b>RED DIAMOND</b> <br/> By: C. Alvarez <br/> 12 comments</p>
+        </div>
+        <div class="pop-posts">
+          <p><img src="img/post-thumb01.jpg" width="70" height="70" alt=""> <b>FLAT DESIGN ALWAYS</b> <br/> By: C. Alvarez <br/> 12 comments</p>
+        </div>
+        <br>
+        <h6><span class="fui-arrow-right"></span> Archives</h6>
+        <p>
+          <span class="fui-calendar"></span> October <span class="label label-default">12</span><br/>
+          <span class="fui-calendar"></span> September <span class="label label-default">10</span><br/>
+          <span class="fui-calendar"></span> August <span class="label label-default">19</span><br/>
+          <span class="fui-calendar"></span> July <span class="label label-default">8</span><br/>
+          <span class="fui-calendar"></span> June <span class="label label-default">12</span><br/>
+        </p>
+        <br>
+        <h6><span class="fui-arrow-right"></span> Tags Cloud</h6>
+        <div class="tagsinput " style="height: 100%;">
+          <span class="tag"><span>Design&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Wordpress&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Media&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Agency&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Javascript&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Flat&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Photo&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Audio&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <span class="tag"><span>Tips&nbsp;&nbsp;</span><a class="tagsinput-remove-link"></a></span>
+          <input id="tags1382559408818_tag" value="" data-default="" style="color: rgb(102, 102, 102); width: 7px;">
+        </div>
+
+      </div>
+      <!-- col-lg-4 / Sidebar -->
+
+
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+
+
+
+  <!-- FOOTER -->
+  <div id="f">
+    <div class="container">
+      <div class="row">
+        <h5 class="centered">Contact Information</h5>
+        <br>
+
+        <div class="col-lg-4">
+          <p>ABOUT <b>GOOD</b> STUDIO</p>
+          <p><small>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</small></p>
+        </div>
+
+        <div class="col-lg-4">
+          <p>MAIN OFFICE</p>
+          <p><small>
+						Richardson Ave. 984<br/>
+						London, UK.<br/>
+						+44 3893-4904
+					</small></p>
+        </div>
+
+        <div class="col-lg-4">
+          <p>OUR NEWSLETTER</p>
+          <p><small>Each month we collect the best stuff around the design world and share it with you.</small></p>
+          <p><input type="text" placeholder="Add your email here" class="form-control flat" /></p>
+        </div>
+
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /Footer -->
+
+  <div id="copyrights">
+    <div class="container">
+      <p>
+        &copy; Copyrights <strong>Good</strong>. All Rights Reserved
+      </p>
+      <div class="credits">
+        <!--
+          You are NOT allowed to delete the credit link to TemplateMag with free version.
+          You can delete the credit link only if you bought the pro version.
+          Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/good-bootstrap-corporate-template/
+          Licensing information: https://templatemag.com/license/
+        -->
+        Created with Good template by <a href="https://templatemag.com/">TemplateMag</a>
+      </div>
+    </div>
+  </div>
+  <!-- / copyrights -->
+
+  <!-- JavaScript Libraries -->
+  <script src="{% static '/lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static '/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static '/lib/php-mail-form/validate.js' %}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{% static '/js/main.js' %}"></script>
+
+</body>
+</html>
