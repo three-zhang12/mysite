@@ -120,6 +120,7 @@ USE_TZ = False  # 不改的话数据库时间会和前端显示时间差八小�
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]

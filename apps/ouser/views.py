@@ -350,7 +350,7 @@ def other_page(request, bbs_user__username):
     page_bbs_list = page_user.bbs_set.all()
 
     # 是否关注
-    if request.user.is_active:
+    if request.user.is_authenticated():
         if Follow.objects.filter(follower=page_user, followed=request.user):
             f = True
         else:
