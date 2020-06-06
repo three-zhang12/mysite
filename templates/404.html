@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Good - Bootstrap Corporate Template</title>
+  <title>JC论客</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -36,44 +36,7 @@
   <!-- Fixed navbar -->
   <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        <a class="navbar-brand" href="index.html">GOOD</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="index.html">Home</a>
-          </li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li class="dropdown active">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="services.html">Services</a></li>
-              <li><a href="pricing.html">Pricing Tables</a></li>
-              <li><a href="testimonials.html">Testimonials</a></li>
-              <li><a href="team.html">Our Team</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="blog-single.html">Blog Article</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-              <li class="active"><a href="404.html">404</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolios <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="portfolio.html">Portfolio</a></li>
-              <li><a href="portfolio4.html">Portfolio 4 Columns</a></li>
-              <li><a href="project-single.html">Single Project</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+
       <!--/.nav-collapse -->
     </div>
   </div>
@@ -85,28 +48,13 @@
     <div class="row centered">
       <div class="col-lg-10 col-lg-offset-1 centered">
         <br>
-        <img src="img/404.png" alt="">
+        <img src="{% static 'img/404.png' %}" alt="">
         <br>
-        <h1><b>404</b></h1>
-	
-		<form action="{% url 'comment:comment_sub' %}" method="POST">
-			{% csrf_token %}
-			{% for field in comment_form %}
-				{{field}}
-				{{field.errors.as_text}}
-			{%endfor%}
-			<hr>
-
-			<button class="pull-right btn btn-info btn-sm rounded-0" type="submit">发表</button>
-			<hr>
-		</form>
+        <h1><b>404 网页走丢了~</b></h1>
+        <br>
 
         <br>
-        <hr>
-        <br>
-        <h4>WE CAN HELP YOU TO FIND YOUR PATH.</h4>
-        <br>
-        <p><b><a href="index.html">Back to Home</a> | <a href="contact.html">Contact Us</a></b></p>
+        <p><b><a href="{%url 'app01:index'%}">Back to Home</a></b></p>
       </div>
     </div>
     <!-- row -->
@@ -115,59 +63,6 @@
   <!-- container -->
 
 
-
-
-  <!-- FOOTER -->
-  <div id="f">
-    <div class="container">
-      <div class="row">
-        <h5 class="centered">Contact Information</h5>
-        <br>
-
-        <div class="col-lg-4">
-          <p>ABOUT <b>GOOD</b> STUDIO</p>
-          <p><small>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</small></p>
-        </div>
-
-        <div class="col-lg-4">
-          <p>MAIN OFFICE</p>
-          <p><small>
-						Richardson Ave. 984<br/>
-						London, UK.<br/>
-						+44 3893-4904
-					</small></p>
-        </div>
-
-        <div class="col-lg-4">
-          <p>OUR NEWSLETTER</p>
-          <p><small>Each month we collect the best stuff around the design world and share it with you.</small></p>
-          <p><input type="text" placeholder="Add your email here" class="form-control flat" /></p>
-        </div>
-
-      </div>
-      <!-- /row -->
-    </div>
-    <!-- /container -->
-  </div>
-  <!-- /Footer -->
-
-  <div id="copyrights">
-    <div class="container">
-      <p>
-        &copy; Copyrights <strong>Good</strong>. All Rights Reserved
-      </p>
-      <div class="credits">
-        <!--
-          You are NOT allowed to delete the credit link to TemplateMag with free version.
-          You can delete the credit link only if you bought the pro version.
-          Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/good-bootstrap-corporate-template/
-          Licensing information: https://templatemag.com/license/
-        -->
-        Created with Good template by <a href="https://templatemag.com/">TemplateMag</a>
-      </div>
-    </div>
-  </div>
-  <!-- / copyrights -->
 
   <!-- JavaScript Libraries -->
   <script src="{%static 'lib/jquery/jquery.min.js' %}"></script>

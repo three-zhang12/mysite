@@ -33,13 +33,47 @@ def delete_read_notifications(request):
 def my_articles(request):
     author = BBS_User.objects.get(id=request.user.id)
     my_articles_list = author.bbs_set.all()
-    return render(request, 'account/my_articles.html', {'my_articles_list': my_articles_list})
+
+    paginator = Paginator(my_articles_list, 5)
+    page_num = request.GET.get('page', 1)
+    page_of_bbs = paginator.get_page(page_num)
+    current_page_num = page_of_bbs.number  # 当前页面
+    # 获取前后共五页
+    page_range = list(range(max(current_page_num - 2, 1), min(paginator.num_pages + 1, current_page_num + 3)))
+    # 添加首尾页
+    if page_range[0] - 2 >= 1:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    return render(request, 'account/my_articles.html', {'page_of_bbs': page_of_bbs,
+                                                        'page_range': page_range})
 
 
 def my_comments(request):
     author = BBS_User.objects.get(id=request.user.id)
     my_comments_list = author.comments.all()
-    return render(request, 'account/my_comments.html', {'my_comments_list': my_comments_list})
+
+    paginator = Paginator(my_comments_list, 5)
+    page_num = request.GET.get('page', 1)
+    page_of_bbs = paginator.get_page(page_num)
+    current_page_num = page_of_bbs.number  # 当前页面
+    # 获取前后共五页
+    page_range = list(range(max(current_page_num - 2, 1), min(paginator.num_pages + 1, current_page_num + 3)))
+    # 添加首尾页
+    if page_range[0] - 2 >= 1:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    return render(request, 'account/my_comments.html', {'page_of_bbs': page_of_bbs,
+                                                        'page_range': page_range})
 
 
 def my_loves(request):
@@ -48,7 +82,24 @@ def my_loves(request):
     my_bbs_list = []
     for each in my_loves_list:
         my_bbs_list.append(Bbs.objects.get(pk=each.object_id))
-    return render(request, 'account/my_loves.html', {'my_loves_list': my_loves_list,
+
+    paginator = Paginator(my_loves_list, 5)
+    page_num = request.GET.get('page', 1)
+    page_of_bbs = paginator.get_page(page_num)
+    current_page_num = page_of_bbs.number  # 当前页面
+    # 获取前后共五页
+    page_range = list(range(max(current_page_num - 2, 1), min(paginator.num_pages + 1, current_page_num + 3)))
+    # 添加首尾页
+    if page_range[0] - 2 >= 1:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    return render(request, 'account/my_loves.html', {'page_of_bbs': page_of_bbs,
+                                                     'page_range': page_range,
                                                      'my_bbs_list': my_bbs_list})
 
 

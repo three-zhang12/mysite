@@ -18,7 +18,7 @@ class BigCategory(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=20, verbose_name='分类')
     admin = models.ForeignKey(BBS_User, verbose_name='版主', on_delete=models.DO_NOTHING)
-    bigcategory = models.ForeignKey(BigCategory, on_delete=models.DO_NOTHING, verbose_name='顶部分类')
+    bigcategory = models.ForeignKey(BigCategory, on_delete=models.CASCADE, verbose_name='顶部分类')
 
     def __str__(self):
         return self.name
@@ -52,7 +52,7 @@ class Bbs(models.Model):
     loves = models.IntegerField(default=0, verbose_name='点赞数')
     created_date = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     update_date = models.DateTimeField(verbose_name='更新日期', auto_now=True)
-    category = models.ForeignKey(Category, verbose_name='分类', on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, verbose_name='分类', on_delete=models.CASCADE)
     keywords = models.ManyToManyField(Keyword, verbose_name='关键词', help_text='建议添加三到四个关键词', default='')
     tag = models.ManyToManyField(Tag, verbose_name='标签', default='')
 

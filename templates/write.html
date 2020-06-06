@@ -1,6 +1,8 @@
 {% extends 'blog-test.html' %}
 {% load static %}
-
+{%block title%}
+JC论客
+{%endblock%}
 {% block content %}
 <div>
 	<form id="bbs_form" method="POST" action="{% url 'app01:save' bigcategory__name=big.name category__name=cate.name %}">

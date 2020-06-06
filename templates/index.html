@@ -5,13 +5,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{%block head_title%}JC{%endblock%}</title>
+  <title>{%block head_title%}JC论客{%endblock%}</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
 
   <!-- Favicons -->
-  <link href="{% static '/img/favicon.png' %}" rel="icon">
+  <link href="{% static '/img/favicon.ico' %}" rel="icon">
   <link href="{% static '/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Bootstrap CSS File -->
@@ -36,6 +36,10 @@
       <div id="large-header" class="large-header">
         <canvas id="demo-canvas"></canvas>
 				{% block content %}
+				<h1 class="main-title">JC论客</span></h1>
+				<p class="main-tagline-0">
+          Create , Record & Share<br><br></p>
+				<!--
                 <ul class="main-title">
 						<h4>最新发布</h4>
 						{% get_bbs_recent as bbs_list %}	
@@ -56,6 +60,8 @@
                         </li>
 						{% endfor %}
                 </ul>
+				-->
+				
 				{%endblock%}
 
       </div>
@@ -119,99 +125,14 @@
 
 
 
-  <!-- Call To Action -->
-  <div id="cta">
-    <div class="container centered">
-      <h3>Welcome to our new corporate site.</h3>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-      <br>
-      <a href="about.html"><button class="btn btn-embossed btn-primary">Meet Our History</button></a>
-    </div>
-    <!-- /container -->
-  </div>
-  <!-- /cta -->
-
-
-
-  <div id="g">
-    <div class="container">
-      <div class="row">
-        <h4 class="centered">What We Are <b>Talking?</b></h4>
-        <br>
-        <div class="col-md-4">
-          <div class="bc">
-            
-            <p><a href="#">待定标题1</a></p>
-            <p>待定</p>
-            <p>
-              <date>Sep. 24, 2013</date>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="bc">
-            
-            <p><a href="#">待定标题2</a></p>
-            <p>待定</p>
-            <p>
-              <date>Sep. 24, 2013</date>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="bc">
-           
-            <p><a href="#">Blog Post 3</a></p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text...</p>
-            <p>
-              <date>Sep. 24, 2013</date>
-            </p>
-          </div>
-        </div>
-
-      </div>
-      <!-- /row -->
-    </div>
-    <!-- /container -->
-  </div>
-  <!-- grey wrap -->
-
-
-
-  <!-- FOOTER -->
-  <div id="f">
-    <div class="container">
-      <div class="row">
-        <h5 class="centered">Contact Information</h5>
-        <br>
-
-        <div class="col-lg-4">
-		  <a href="/sitemap.xml" title="Sitemap" target="_blank">Sitemap</a>
-		  <br>
-		  <a href="/feed/" rel="external nofollow" target="_blank" title="订阅本站">
-			订阅本站</a>
-        </div>
-      </div>
-      <!-- /row -->
-    </div>
-    <!-- /container -->
-  </div>
-  <!-- /Footer -->
-
   <div id="copyrights">
     <div class="container">
-      <p>
-        &copy; Copyrights <strong>Good</strong>. All Rights Reserved
-      </p>
+	  <a href="/sitemap.xml" title="Sitemap" target="_blank">Sitemap</a>
+	  &nbsp;&nbsp;
+      <a href="/feed/" rel="external nofollow" target="_blank" title="订阅本站">
+			订阅本站</a>
+
       <div class="credits">
-        <!--
-          You are NOT allowed to delete the credit link to TemplateMag with free version.
-          You can delete the credit link only if you bought the pro version.
-          Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/good-bootstrap-corporate-template/
-          Licensing information: https://templatemag.com/license/
-        -->
         Created with Good template by <a href="https://templatemag.com/">TemplateMag</a>
       </div>
     </div>

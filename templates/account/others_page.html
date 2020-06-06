@@ -1,7 +1,7 @@
 {% extends 'blog-test.html' %}
 {% load static %}
 
-{%block title%}主页|{{page_user.username}}{%endblock%}
+{%block title%}JC|{{page_user.username}}{%endblock%}
 
 {% block style_extend %} 
 <style>
@@ -36,9 +36,11 @@
 {% endblock %}
 
 {% block content %}
+
 <video id="v1" autoplay loop muted>
   			<source src="{% static '/img/sea.mp4' %}" type="video/mp4" />
 </video>
+
 
 <div class="container">
     <div class="row">

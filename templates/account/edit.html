@@ -1,6 +1,9 @@
 {% extends 'blog-test.html' %}
 {% load static %}
 
+{%block title%}
+JC论客
+{%endblock%}
 {% block content %}
 <div>
 	<form id="bbs_form" method="POST" action="{% url 'my_notifications:save_edit' cate.name bbs.id %}">

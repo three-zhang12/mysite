@@ -1,7 +1,7 @@
 {% extends 'blog-test.html' %}
 {% load static %}
 
-{%block title%}个人主页|消息通知{%endblock%}
+{%block title%}JC|个人主页|消息通知{%endblock%}
 {% block content %}
 
     <div class="container">
@@ -9,7 +9,7 @@
             <div class="col-md-10 col-md-offset-1">
 
                 <ul class="notifications" style="margin-top:2em;">
-                    {% for my_comment in my_comments_list %}
+                    {% for my_comment in page_of_bbs %}
                         <li style="margin-top:2em;font-size:120%">
                             <a href="{% url 'app01:detail' pk=my_comment.article.pk %}">[{{my_comment.date}}]:{{ my_comment.article_comment }}</a>
 							
@@ -19,8 +19,44 @@
 						</li>
 						<hr>
                     {% empty %}
-                        <li>暂无内容，快去发帖~</li>
+                        <li>暂无评论，快去看看吧~</li>
                     {% endfor %}
+					
+					<div class="pagination">
+					  <ul class="pagination">
+						<li>
+						{%if page_of_bbs.has_previous%}
+						  <a href="?page={{page_of_bbs.previous_page_number}}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						  </a>
+						 {%else%}
+							<span aria-hidden="true">&laquo;</span>
+						 {%endif%}
+						</li>
+						
+						{% for page_num in page_range %}
+							{%if page_num == page_of_bbs.number%}
+								<li class="active"><span>{{page_num}}</span></li>
+							{%else%}
+								{%if page_num == '...'%}
+									<li><span>{{page_num}}</span></li>
+								{%else%}
+									<li><a href="?page={{page_num}}">{{page_num}}</a></li>
+								{%endif%}
+							{%endif%}
+						{%endfor%}	
+						
+						<li>
+						{%if page_of_bbs.has_next%}
+						  <a href="?page={{page_of_bbs.next_page_number}}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						  </a>
+						{%else%}
+							<span aria-hidden="true">&raquo;</span>
+						{%endif%}
+						</li>
+					  </ul>
+				</div>
                 </ul>
             </div>
         </div>

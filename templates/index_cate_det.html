@@ -1,6 +1,6 @@
 {%extends 'index.html'%}
 {%load static%}
-
+{%block head_title%}JC论客{%endblock%}
 {% block write %} {% if user.is_authenticated %}<a href="{% url 'app01:write' big.name cate.name %}" class="glyphicon glyphicon-pencil"><b>发帖</b></a>{% endif %}{% endblock %}
 
 {% block content%}

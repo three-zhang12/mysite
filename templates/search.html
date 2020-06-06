@@ -3,7 +3,7 @@
 {% load app01_tags%}
 
 
-{% block head_title %}文章搜索：{{ search_content }}{% endblock %}
+{% block head_title %}JC|文章搜索：{{ search_content }}{% endblock %}
 <br>
 {% block content%}
     <div class="main-title-5">
@@ -28,8 +28,8 @@
 						&nbsp;&nbsp;
 						<span class="glyphicon glyphicon-thumbs-up">{{ bbs.loves }}</span>
 						&nbsp;&nbsp;
-						{%get_comment_count bbs.id%}
-						<span class="glyphicon glyphicon-edit">{{ comment_count }}</span>
+						
+						<span class="glyphicon glyphicon-edit">{%get_comment_count bbs.id%}</span>
 						
 						
                         <p>{{ bbs.content | striptags | truncatechars_html:50}}</p>

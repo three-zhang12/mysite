@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JC论客</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="{%static 'img/favicon.png' %}" rel="icon">
+  <link href="{%static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{%static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{%static 'lib/flat-ui/css/flat-ui.css' %}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="{%static 'ckeditor/ckeditor-init.js'%}"></script>
+  <script type="text/javascript" src="{%static 'ckeditor/ckeditor/ckeditor.js'%}"></script>
+
+  <!-- =======================================================
+    Template Name: Good
+    Template URL: https://templatemag.com/good-bootstrap-corporate-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+
+
+
+  <!-- 500 Error -->
+  <div class="container">
+    <div class="row centered">
+      <div class="col-lg-10 col-lg-offset-1 centered">
+        <br>
+        <img src="{% static 'img/404.png' %}" alt="">
+        <br>
+        <h1><b>500 网页丢失~~</b></h1>
+        <br>
+
+        <br>
+        <p><b><a href="{%url 'app01:index'%}">Back to Home</a></b></p>
+      </div>
+    </div>
+    <!-- row -->
+    <br>
+  </div>
+  <!-- container -->
+
+
+
+  <!-- JavaScript Libraries -->
+  <script src="{%static 'lib/jquery/jquery.min.js' %}"></script>
+  <script src="{%static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{%static 'lib/php-mail-form/validate.js' %}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{%static 'js/main.js' %}"></script>
+
+</body>
+</html>

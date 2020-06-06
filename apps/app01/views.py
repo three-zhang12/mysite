@@ -26,8 +26,8 @@ from notifications.models import Notification
 
 
 def IndexView(request):
-    # bigcategory = models.BigCategory.objects.all()
-    return render(request, 'index.html')
+    bigcategory = models.BigCategory.objects.all()
+    return render(request, 'index.html', {'bigcategory': bigcategory})
 
 
 def CategoryView(request, bigcategory__name):

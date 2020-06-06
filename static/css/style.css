@@ -1100,8 +1100,8 @@ overflow-x:hidden;
   padding: 0;
   color: #bdc3c7;
   text-align: center;
-  top: 60%;
-  left: 20%;
+  top: 40%;
+  left: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
 }
@@ -1152,6 +1152,19 @@ overflow-x:hidden;
   left: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
+}
+
+.main-tagline-0 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  color: #f9f1e9;
+  text-align: center;
+  top: 55%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  font-size: 18px;
 }
 
 .main-tagline {
