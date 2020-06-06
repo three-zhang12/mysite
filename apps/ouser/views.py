@@ -193,7 +193,7 @@ def send_ver(request):
             send_mail(
                 'JC验证',
                 '验证码：%s' % code,
-                '970884043@qq.com',
+                'jcjc_jjc@163.com',
                 [email],
                 fail_silently=False
             )
@@ -258,7 +258,7 @@ def forgot_ver(request):
             send_mail(
                 'JC验证',
                 '验证码：%s' % code,
-                '970884043@qq.com',
+                'jcjc_jjc@163.com',
                 [email],
                 fail_silently=False
             )
@@ -350,10 +350,13 @@ def other_page(request, bbs_user__username):
     page_bbs_list = page_user.bbs_set.all()
 
     # 是否关注
-    if Follow.objects.filter(follower=page_user, followed=request.user):
-        f = True
+    if request.user.is_active:
+        if Follow.objects.filter(follower=page_user, followed=request.user):
+            f = True
+        else:
+            f = False
     else:
-        f = False
+        f = None
     # 分页
     paginator = Paginator(page_bbs_list, 5)
     page_num = request.GET.get('page', 1)
@@ -387,6 +390,8 @@ def follow(request):
             return redirect('ouser:other_page', other_name)
         else:
             Follow(follower=other, followed=my).save()
+    else:
+        return render(request, '404.html')
     return redirect('ouser:other_page', other_name)
 
 
