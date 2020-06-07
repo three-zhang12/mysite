@@ -1182,7 +1182,21 @@ ul {
     list-style-type: none!important; 
 }
 
-
+/*回到顶部*/
+.scroll-top{
+	display: inline;
+    position: fixed;
+    bottom: 40px;
+    right: -5px;
+    width: 35px;
+    height: 35px;
+    background-color: #323d45;
+    background-image: url(/static/img/goto_top.png);
+    border-radius: 8px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    opacity: 0.5;
+}
 
 /*
 .intro .large-header {

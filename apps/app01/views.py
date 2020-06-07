@@ -20,6 +20,7 @@ from markdown.extensions.toc import TocExtension
 from comment.models import Comment
 from .forms import BbsForm
 from ouser.models import BBS_User
+from itertools import chain
 from notifications.models import Notification
 # from haystack.generic_views import SearchView  # 导入搜索视图
 # from haystack.query import SearchQuerySet
@@ -32,16 +33,18 @@ def IndexView(request):
 
 def CategoryView(request, bigcategory__name):
     # 把url网址改为分类名，若要改回id名，则将传入参数bigcategory__name改为bigcategory_id，相应的把html中的url改回
-    big = models.BigCategory.objects.filter(name=bigcategory__name)
-    category = big[0].category_set.all()
+    big = models.BigCategory.objects.get(name=bigcategory__name)
+    category = big.category_set.all()
     return render(request, 'index_cate.html', {'category': category,
-                                               'big': big[0]})
+                                               'big': big})
 
 
 def CategorydetailView(request, bigcategory__name, category__name):
-    big = models.BigCategory.objects.filter(name=bigcategory__name)
-    cate = models.Category.objects.filter(name=category__name)
-    bbs_list = cate[0].bbs_set.all()
+    big = models.BigCategory.objects.get(name=bigcategory__name)
+    cate = models.Category.objects.get(name=category__name)
+    bbs_hot = models.Category.objects.get(name=category__name).bbs_set.all().filter(is_hot=True)
+    bbs_not_hot = models.Category.objects.get(name=category__name).bbs_set.all().filter(is_hot=False)
+    bbs_list = [x for x in chain(bbs_hot, bbs_not_hot)]
     # 分页
     paginator = Paginator(bbs_list, settings.ARTICLE_NUM)
     page_num = request.GET.get('page', 1)
@@ -60,8 +63,8 @@ def CategorydetailView(request, bigcategory__name, category__name):
         page_range.append(paginator.num_pages)
     return render(request, 'index_cate_det.html', {'page_of_bbs': page_of_bbs,
                                                    'page_range': page_range,
-                                                   'cate': cate[0],
-                                                   'big': big[0]})
+                                                   'cate': cate,
+                                                   'big': big})
 
 
 class Detail(generic.DetailView):
@@ -245,19 +248,19 @@ def content_sub(request, bigcategory__name, category__name):
                 category=cate,
             )
             blog.save()
-            return redirect('/')
+            return redirect('app01:category_detail', big.name, cate.name)
         else:
             context['status'] = 'ERROR'
-            return redirect('/')
+            return redirect('app01:category_detail', big.name, cate.name)
 
 
 # 文本视图
 def write(request, bigcategory__name, category__name):
-    big = models.BigCategory.objects.filter(name=bigcategory__name)
-    cate = models.Category.objects.filter(name=category__name)
+    big = models.BigCategory.objects.get(name=bigcategory__name)
+    cate = models.Category.objects.get(name=category__name)
     tag_list = models.Tag.objects.all()
-    return render(request, 'write.html', {'big': big[0],
-                                          'cate': cate[0],
+    return render(request, 'write.html', {'big': big,
+                                          'cate': cate,
                                           'tag_list': tag_list,
                                           'bbs_form': BbsForm(initial={'summary': '本人甚懒，不想填写'})})
 

@@ -6,9 +6,15 @@
 {% block content%}
 <ul class="main-title-4">
 	{% for bbs in page_of_bbs.object_list%}
+	{%if bbs.is_hot%}
+	<li class="main-tagline">
+	<a href = '{% url "app01:detail" pk=bbs.id %}' class="smoothscroll btn btn-conf btn-theme"><strong style="font-size:150%;color:red;">{{bbs.title}}</strong></a>
+	</li>	
+	{%else%}
 	<li class="main-tagline">
 	<a href = '{% url "app01:detail" pk=bbs.id %}' class="smoothscroll btn btn-conf btn-theme"><strong style="font-size:150%;color:#bdc3c7;">{{bbs.title}}</strong></a>
 	</li>
+	{%endif%}
 	{%empty%}
 	<p>暂无内容~</p>
 	{%endfor%}

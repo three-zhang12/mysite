@@ -12,6 +12,7 @@ class BBS_User(AbstractUser):
     signature = models.CharField(max_length=128, default='此人甚懒', verbose_name='签名')
     avatar = ProcessedImageField(upload_to='avatar/%Y/%m/%d', default='avatar/default.png',
                                  verbose_name='头像', processors=[ResizeToFill(80, 80)])
+    is_reg = models.IntegerField(default=0, verbose_name='版主', null=True, blank=True)
 
     class Meta:
         verbose_name = '用户'  # 定义网站管理后台表名
