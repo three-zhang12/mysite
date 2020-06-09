@@ -171,7 +171,7 @@
 				{% for field in comment_form %}
 					{{field}}
 				{%endfor%}
-		<p>Please <a href='/login/'>Login</a> to sumbit a comment!</p>
+		<p>Please <a href="{% url 'ouser:login' %}">Login</a> to sumbit a comment!</p>
 		<hr>
 		{%endif%}
 			

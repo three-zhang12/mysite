@@ -182,11 +182,11 @@ CKEDITOR_CONFIGS = {
         # 添加按钮在这里
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Font', 'FontSize', 'Format'
-                , 'RemoveFormat', 'Form'],
+                , 'RemoveFormat', 'Form', 'Table', 'Styles'],
             ['NumberedList', 'BulletedList'],
             ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
             ['SpellChecker', 'Scayt', 'Undo', 'Redo', 'Find', 'Replace'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'BidiLtr', 'BidiRtl'],
+            ['Outdent ', 'Indent ', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'BidiLtr', 'BidiRtl'],
             ["TextColor", "BGColor"],
             ['Blockquote', 'CodeSnippet'],
             ['Image', 'Link', 'Unlink'],
