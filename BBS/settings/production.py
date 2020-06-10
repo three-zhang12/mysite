@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['47.101.216.80']
+ALLOWED_HOSTS = ['*']
 
 DATABASE_PASSWORD = os.environ['DATABASE_PASSWORD']
 DATABASES = {
