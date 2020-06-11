@@ -23,12 +23,7 @@
   <!-- Main Stylesheet File -->
   <link href="{% static '/css/style.css' %}" rel="stylesheet">
 
-  <!-- =======================================================
-    Template Name: Good
-    Template URL: https://templatemag.com/good-bootstrap-corporate-template/
-    Author: TemplateMag.com
-    License: https://templatemag.com/license/
-  ======================================================= -->
+
 </head>
 
 <body>
@@ -39,29 +34,6 @@
 				<h1 class="main-title">JC论客</span></h1>
 				<p class="main-tagline-0">
           Create , Record & Share<br><br></p>
-				<!--
-                <ul class="main-title">
-						<h4>最新发布</h4>
-						{% get_bbs_recent as bbs_list %}	
-						{% for bbs in bbs_list %}
-                        <li class="main-tagline">
-						
-							<a href="{% url 'app01:detail' bbs.id %}" class="smoothscroll btn btn-conf btn-theme">{{bbs.title| striptags | truncatechars_html:20}}</a>
-							
-                        </li>
-						{%endfor%}
-                </ul>
-				<ul class="main-title-2">
-						<h4>点击热门</h4>
-						{% get_hot_recent as hot_list %}	
-						{% for hot in hot_list %}
-                        <li class="main-tagline">
-							<a href="{% url 'app01:detail' hot.id %}" class="smoothscroll btn btn-conf btn-theme">{{hot.title| striptags | truncatechars_html:20}}</a>
-                        </li>
-						{% endfor %}
-                </ul>
-				-->
-				
 				{%endblock%}
 
       </div>
@@ -128,12 +100,17 @@
   <div id="copyrights">
     <div class="container">
 	  <a href="/sitemap.xml" title="Sitemap" target="_blank">Sitemap</a>
-	  &nbsp;&nbsp;
+	  &nbsp;|&nbsp;
       <a href="/feed/" rel="external nofollow" target="_blank" title="订阅本站">
 			订阅本站</a>
-
+	&nbsp;|&nbsp;
+      <a href="http://www.beian.miit.gov.cn/"  target="_blank" title="备案号">
+			苏ICP备20034216号-1</a>			
+		&nbsp;|&nbsp;	
+	<a href="#"  target="_blank" title="版权所有">
+			Copyright©2020 jclunke.com 版权所有</a>	
       <div class="credits">
-        Created with Good template by <a href="https://templatemag.com/">TemplateMag</a>
+        Created with Good template by <a href="https://templatemag.com/" target="_blank">TemplateMag</a>
       </div>
     </div>
   </div>
