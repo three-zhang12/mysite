@@ -129,9 +129,8 @@ AUTH_USER_MODEL = 'ouser.BBS_User'
 
 # 媒体文件收集
 MEDIA_URL = "/media/"   # 媒体文件别名(相对路径) 和 绝对路径
-MEDIA_ROOT = (
-    os.path.join(BASE_DIR, 'media')
-)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 '''
 # haystack 搜索
