@@ -35,7 +35,7 @@
                                 <span class="asteriskField">*</span>
                             </label>
                             <div class="">
-                                <input type="text" name="username" value="{{ username }}" placeholder="用户名"  minlength="1" maxlength="150" class="textinput textInput form-control form-control-danger" required id="id_username" />
+                                <input type="text" name="username" value="{{ username }}" placeholder="用户名长度应在5-20个字符之间"  minlength="1" maxlength="150" class="textinput textInput form-control form-control-danger" required id="id_username" />
                                 <p id="error_1_id_username" class="help-block">
                                     <strong>{% if user_error == 'exit' %}已存在一位使用该名字的用户
                                         {% elif user_error == 'length' %}用户名限制5~20个字符
@@ -48,7 +48,7 @@
                                         密码<span class="asteriskField">*</span>
                             </label>
                             <div class="">
-                                <input type="password" name="password" value="{{ pwd }}" placeholder="密码" class="textinput textInput form-control form-control-danger" required id="id_password1" />
+                                <input type="password" name="password" value="{{ pwd }}" placeholder="密码长度应在8-20个字符之间，不能为纯数字或字母" class="textinput textInput form-control form-control-danger" required id="id_password1" />
                                 <p id="error_1_id_password1" class="help-block">
                                     <strong>{% if pwd_error == 'nums_alpha' %}密码不能使用纯数字或字母
                                             {% elif pwd_error == 'length' %}密码限制8~20个字符
