@@ -132,7 +132,7 @@ def login_view(request):
                     reqs = HttpResponseRedirect(next_to)
 
                     if remember != 0:
-                        reqs.set_cookie('username', username.encode('utf-8').decode('latin1'))
+                        reqs.set_cookie('username', BBS_User.objects.get(username=username).email)
                     else:
                         reqs.set_cookie('username', '', max_age=-1)
                     return reqs
