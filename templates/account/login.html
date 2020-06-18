@@ -44,7 +44,7 @@
 	
 	<div class="form-group"> 
 		<div id="div_id_remember" class="checkbox"> 
-			<label for="id_remember" class=""> <input type="checkbox" name="remember" class="checkboxinput" id="id_remember" />记住我</label> 
+			<label for="id_remember" class=""> <input type="checkbox" name="remember" class="checkboxinput" id="id_remember" {{request.COOKIES.remember}}/>记住我</label> 
 		</div> 
 	</div>
 

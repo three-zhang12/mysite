@@ -133,8 +133,10 @@ def login_view(request):
 
                     if remember != 0:
                         reqs.set_cookie('username', BBS_User.objects.get(username=username).email)
+                        reqs.set_cookie('remember', 'checked')
                     else:
                         reqs.set_cookie('username', '', max_age=-1)
+                        reqs.set_cookie('remember', '')
                     return reqs
                 else:
                     context['inactive'] = True
