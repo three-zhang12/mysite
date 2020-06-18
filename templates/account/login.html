@@ -30,7 +30,7 @@
 	<div id="div_id_login" class="form-group"> 
 		<label for="id_login" class="form-control-label  requiredField">账号<span class="asteriskField">*</span> </label> 
 		<div class=""> 
-			<input type="text" name="username" placeholder="用户名或e-mail" autofocus="autofocus" value="{{ username }}" class="textinput textInput form-control" required id="id_login" /> 
+			<input type="text" name="username" placeholder="用户名或e-mail" autofocus="autofocus" value="{{request.COOKIES.username}}" class="textinput textInput form-control" required id="id_login" /> 
 		</div> 
 	</div> 
 	<div id="div_id_password" class="form-group"> 
