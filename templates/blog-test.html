@@ -78,7 +78,7 @@
 					</button>
 			  </form>
 			</li>
-			
+			<!--
 			{% if request.user.username|default:'' != '' %}
 			{% notifications_unread as unread_count %}
 			<li><a href="{% url 'ouser:personal_page' %}">{{request.user.username}}<span class="badge live_notify_badge" style="background-color:#ac2925!important;margin-top:-0.2em">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</span></a></li>
@@ -86,7 +86,7 @@
 			{%else%}
 			<li><a href="{% url 'ouser:login' %}?next={{ request.get_full_path }}">登录</a></li>
 			<li><a href="{% url 'ouser:register' %}">注册</a></li>
-			{%endif%}
+			{%endif%}-->
 		</ul>
       </div>
       <!--/.nav-collapse -->
@@ -140,6 +140,7 @@
 			{%endif%}
 			</div>
         </div>
+		
 		{% if user.is_authenticated%}
 		<div class="comment_container">
 			<h4 style="margin-top:2em;border-bottom: 1px solid #ccc;">提交评论</h4>
@@ -168,7 +169,7 @@
 		<hr>
 		{%endif%}
 			
-		
+		<!--
 		<div class="comment-area">
 			<h4 class="comment-area-title">评论列表</h4>
 			<div id="comment_list">
@@ -245,7 +246,7 @@
 		</div>
 	  </div>		
 		
-
+-->
 	</div>
 
 

@@ -79,7 +79,7 @@
 					</button>
 			  </form>
 			</li>
-			
+			<!--
 			{% if user.is_authenticated %}
 			{% notifications_unread as unread_count %}
 			<li><a href="{% url 'ouser:personal_page' %}">{{request.user.username}}&nbsp;&nbsp;<span class="badge live_notify_badge" style="background-color:#ac2925!important;margin-top:-0.2em">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</span></a></li>
@@ -87,7 +87,7 @@
 			{%else%}
 			<li><a href="{% url 'ouser:login' %}?next={{ request.get_full_path }}">登录</a></li>
 			<li><a href="{% url 'ouser:register' %}">注册</a></li>
-			{%endif%}
+			{%endif%}-->
 		</ul>
       </div>
       <!--/.nav-collapse -->
