@@ -78,7 +78,7 @@
 					</button>
 			  </form>
 			</li>
-			<!--
+			
 			{% if request.user.username|default:'' != '' %}
 			{% notifications_unread as unread_count %}
 			<li><a href="{% url 'ouser:personal_page' %}">{{request.user.username}}<span class="badge live_notify_badge" style="background-color:#ac2925!important;margin-top:-0.2em">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</span></a></li>
@@ -86,7 +86,7 @@
 			{%else%}
 			<li><a href="{% url 'ouser:login' %}?next={{ request.get_full_path }}">登录</a></li>
 			<li><a href="{% url 'ouser:register' %}">注册</a></li>
-			{%endif%}-->
+			{%endif%}
 		</ul>
       </div>
       <!--/.nav-collapse -->
@@ -140,7 +140,7 @@
 			{%endif%}
 			</div>
         </div>
-		<!--
+		
 		{% if user.is_authenticated%}
 		<div class="comment_container">
 			<h4 style="margin-top:2em;border-bottom: 1px solid #ccc;">提交评论</h4>
@@ -246,7 +246,7 @@
 		</div>
 	  </div>		
 		
--->
+
 	</div>
 
 
@@ -290,6 +290,9 @@
 		  <span class="glyphicon glyphicon-book"></span> <a href="http://www.beian.miit.gov.cn/"  target="_blank" title="备案号">
 			苏ICP备20034216号-1</a><br/>
 		  <span class="glyphicon glyphicon-book"></span> Created by <a href="https://templatemag.com/" target="_blank">TemplateMag</a><br/>
+		  <div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32058302002707" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="{% static '/img/beian.png' %}" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">苏公网安备 32058302002707号</p></a>
+		  </div>
         </p>
         </div>
 	</div>

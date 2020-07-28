@@ -79,7 +79,7 @@
 					</button>
 			  </form>
 			</li>
-			<!--
+			
 			{% if user.is_authenticated %}
 			{% notifications_unread as unread_count %}
 			<li><a href="{% url 'ouser:personal_page' %}">{{request.user.username}}&nbsp;&nbsp;<span class="badge live_notify_badge" style="background-color:#ac2925!important;margin-top:-0.2em">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</span></a></li>
@@ -87,7 +87,7 @@
 			{%else%}
 			<li><a href="{% url 'ouser:login' %}?next={{ request.get_full_path }}">登录</a></li>
 			<li><a href="{% url 'ouser:register' %}">注册</a></li>
-			{%endif%}-->
+			{%endif%}
 		</ul>
       </div>
       <!--/.nav-collapse -->
@@ -105,13 +105,16 @@
 			订阅本站</a>
 	&nbsp;|&nbsp;
       <a href="http://www.beian.miit.gov.cn/"  target="_blank" title="备案号">
-			苏ICP备20034216号-1</a>			
+			苏ICP备20034216号-1</a>				
 		&nbsp;|&nbsp;	
 	<a href="#"  target="_blank" title="版权所有">
 			Copyright©2020 jclunke.com 版权所有</a>	
-      <div class="credits">
-        Created with Good template by <a href="https://templatemag.com/" target="_blank">TemplateMag</a>
-      </div>
+	&nbsp;|&nbsp;	
+	 <a href="https://templatemag.com/" target="_blank">Created with Good template by TemplateMag</a>
+	<div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32058302002707" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="{% static '/img/beian.png' %}" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">苏公网安备 32058302002707号</p></a>
+	</div>
+	
     </div>
   </div>
   <!-- / copyrights -->
